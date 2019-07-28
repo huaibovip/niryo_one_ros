@@ -73,6 +73,22 @@ npm install
 sudo npm link
 ```
 
+# Fix malformed stl (says Rviz)
+
+To correct:
+
+    The STL file 'package://niryo_one_description/meshes/v2/stl/forearm_link.stl' is malformed. It starts with the word 'solid', indicating that it's an ASCII STL file, but it does not contain the word 'endsolid' so it is either a malformed ASCII STL file or it is actually a binary STL file. Trying to interpret it as a binary STL file instead.
+
+When launching Rviz with a URDF containing SolidWorks created meshes in STL.
+
+Just go to the folder with STL's with this problem and do:
+
+    sed -i 's/^solid/robot/' *
+    
+This will substitute the starting string 'solid' for 'robot' (could be any non-keyword for STL file word).
+
+Thanks to [this issue](https://github.com/ros-industrial/abb_experimental/issues/5).
+
 That's it, you have now all the Niryo One functionalities ready to be used.
 
 ## Niryo One ROS Stack overview
